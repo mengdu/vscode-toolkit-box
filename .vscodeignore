@@ -1,0 +1,12 @@
+.vscode/**
+.vscode-test/**
+.gitignore
+syntaxes/**
+examples/**
+src/**
+web/**
+*.vsix
+tsconfig.json
+esbuild.config.js
+pnpm-lock.yaml
+package-lock.json
