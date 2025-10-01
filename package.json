@@ -1,0 +1,83 @@
+{
+  "name": "vscode-toolkit-box",
+  "displayName": "Toolkit Box",
+  "description": "Toolkit Box for VS Code.",
+  "publisher": "lanyue",
+  "private": true,
+  "preview": true,
+  "version": "0.1.0",
+  "main": "dist/main.js",
+  "icon": "media/icon.png",
+  "categories": [
+    "Other"
+  ],
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "files": [
+    "dist",
+    "media"
+  ],
+  "repository": {
+    "url": "git@github.com:mengdu/vscode-toolkit-box.git"
+  },
+  "scripts": {
+    "dev": "npm run build-ext -- --dev",
+    "web": "cd web && npm run dev",
+    "build": "rm -rf dist && npm run build-ext && npm run build-web && vsce package --no-dependencies",
+    "build-ext": "node esbuild.config.js",
+    "build-web": "cd web && npm run build",
+    "grpc-server": "ts-node examples/grpc/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lanyueos@qq.com",
+  "license": "MIT",
+  "activationEvents": [],
+  "contributes": {
+    "activationEvents": [
+      "*",
+      "onView:vscode-toolkit-box.views.home"
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscode-toolkit-box",
+					"title": "Toolkit Box",
+					"icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscode-toolkit-box": [
+        {
+          "id": "vscode-toolkit-box.views.home",
+          "name": "Toolkit Box",
+          "icon": "media/icon.svg",
+          "type": "webview"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vscode-toolkit-box.views.home",
+        "contents": "No data yet."
+      }
+    ],
+    "commands": [
+      {
+        "icon": "media/icon.svg",
+        "title": "Hello",
+        "command": "vscode-toolkit-box.cmd.sayHello"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/node": "^20.9.4",
+    "@types/vscode": "^1.84.2",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.19.7",
+    "delog.js": "^0.1.2",
+    "lodash.debounce": "^4.0.8"
+  }
+}
