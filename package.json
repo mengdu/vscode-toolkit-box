@@ -19,6 +19,7 @@
     "media"
   ],
   "repository": {
+    "type": "git",
     "url": "git@github.com:mengdu/vscode-toolkit-box.git"
   },
   "scripts": {
@@ -42,8 +43,8 @@
       "activitybar": [
         {
           "id": "vscode-toolkit-box",
-					"title": "Toolkit Box",
-					"icon": "media/icon.svg"
+          "title": "Toolkit Box",
+          "icon": "media/icon.svg"
         }
       ]
     },
@@ -68,16 +69,41 @@
         "icon": "media/icon.svg",
         "title": "Hello",
         "command": "vscode-toolkit-box.cmd.sayHello"
+      },
+      {
+        "command": "vscode-toolkit-box.cmd.reloadWebview",
+        "title": "Reload Webview",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vscode-toolkit-box.cmd.cleanState",
+        "title": "Clean State",
+        "icon": "$(clear-all)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-toolkit-box.cmd.reloadWebview",
+          "when": "view == vscode-toolkit-box.views.home",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-toolkit-box.cmd.cleanState",
+          "when": "view == vscode-toolkit-box.views.home",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20.9.4",
     "@types/vscode": "^1.84.2",
     "builtin-modules": "^3.3.0",
-    "esbuild": "^0.19.7",
     "delog.js": "^0.1.2",
-    "lodash.debounce": "^4.0.8"
+    "esbuild": "^0.19.7",
+    "lodash.debounce": "^4.0.8",
+    "tailwindcss": "^4.1.14"
   }
 }

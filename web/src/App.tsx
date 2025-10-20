@@ -1,10 +1,9 @@
-import { vscode } from './store'
-import * as shared from '../../src/views/shared'
+import TextTools from './text'
 
 export default function App() {
   return (
-    <div>
-      <button className="btn" onClick={() => vscode.send({type: shared.WebMsgType.RELOAD})}>Hello</button>
+    <div className="w-[100vw] h-[100vh]">
+      <TextTools />
     </div>
   )
 }

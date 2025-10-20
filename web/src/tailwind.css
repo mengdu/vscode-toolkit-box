@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@layer components {
+  .arrow-left::after {
+    @apply content-[''] absolute top-[9px] left-[-10px] border-5 border-solid border-r-[#b3b3b3]/15 border-transparent;
+  }
+
+  .arrow-right::after {
+    @apply content-[''] absolute top-[9px] right-[-10px] border-5 border-solid border-l-white/5 border-transparent;
+  }
+}

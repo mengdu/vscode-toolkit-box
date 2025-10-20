@@ -2,6 +2,6 @@ export function isDev() {
   return import.meta.env.DEV
 }
 
-// export function resolveLibUrl(file: string) {
-//   return window.LibURL.replace(/\/*$/, '') + '/' + file.replace(/^\/*/, '')
-// }
+export function resolveMediaURL(file: string) {
+  return window.mediaBaseURL.replace(/\/*$/, '') + '/' + file.replace(/^\/*/, '')
+}

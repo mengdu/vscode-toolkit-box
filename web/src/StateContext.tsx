@@ -3,10 +3,11 @@ import { useImmerReducer } from 'use-immer'
 import { initState, storeReducer, Context, ActionType } from './store'
 import * as shared from '../../src/views/shared'
 
+const init = initState()
 export function StoreContext(props: {
   children: ReactNode
 }) {
-  const [state, dispatch] = useImmerReducer(storeReducer, initState())
+  const [state, dispatch] = useImmerReducer(storeReducer, init)
   const handleMessage = (e: MessageEvent<shared.ExtMsgEventData>) => {
     console.log('message', shared.ExtMsgType[e.data.type], e.data)
     switch (e.data.type) {
@@ -16,6 +17,17 @@ export function StoreContext(props: {
       //     data: e.data.data,
       //   })
       //   break
+      case shared.ExtMsgType.TEXT_CLEAN_STATE:
+        dispatch({
+          type: ActionType.Clean,
+        })
+        break
+      case shared.ExtMsgType.TEXT_TASK_RESULT:
+        dispatch({
+          type: ActionType.TextTaskResult,
+          data: e.data.data,
+        })
+        break
     }
   }
   useEffect(() => {
