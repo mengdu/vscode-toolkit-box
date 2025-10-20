@@ -4,7 +4,6 @@
   "description": "Toolkit Box for VS Code.",
   "publisher": "lanyue",
   "private": true,
-  "preview": true,
   "version": "0.1.0",
   "main": "dist/main.js",
   "icon": "media/icon.png",
@@ -20,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:mengdu/vscode-toolkit-box.git"
+    "url": "ghttps://github.com/mengdu/vscode-toolkit-box"
   },
   "scripts": {
     "dev": "npm run build-ext -- --dev",
@@ -65,11 +64,6 @@
       }
     ],
     "commands": [
-      {
-        "icon": "media/icon.svg",
-        "title": "Hello",
-        "command": "vscode-toolkit-box.cmd.sayHello"
-      },
       {
         "command": "vscode-toolkit-box.cmd.reloadWebview",
         "title": "Reload Webview",
