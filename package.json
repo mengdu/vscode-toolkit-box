@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "ghttps://github.com/mengdu/vscode-toolkit-box"
+    "url": "https://github.com/mengdu/vscode-toolkit-box"
   },
   "scripts": {
     "dev": "npm run build-ext -- --dev",
