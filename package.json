@@ -98,9 +98,7 @@
     "delog.js": "^0.1.2",
     "esbuild": "^0.19.7",
     "lodash.debounce": "^4.0.8",
-    "tailwindcss": "^4.1.14"
-  },
-  "dependencies": {
+    "tailwindcss": "^4.1.14",
     "expr-eval": "^2.0.2"
   }
 }
