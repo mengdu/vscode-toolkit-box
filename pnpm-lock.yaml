@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      expr-eval:
+        specifier: ^2.0.2
+        version: 2.0.2
     devDependencies:
       '@types/lodash.debounce':
         specifier: ^4.0.9
@@ -197,6 +201,9 @@ packages:
     engines: {node: '>=12'}
     hasBin: true
 
+  expr-eval@2.0.2:
+    resolution: {integrity: sha512-4EMSHGOPSwAfBiibw3ndnP0AvjDWLsMvGOvWEZ2F96IGk0bIVdjQisOHxReSkE13mHcfbuCiXw+G4y0zv6N8Eg==}
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -318,6 +325,8 @@ snapshots:
       '@esbuild/win32-arm64': 0.19.12
       '@esbuild/win32-ia32': 0.19.12
       '@esbuild/win32-x64': 0.19.12
+
+  expr-eval@2.0.2: {}
 
   lodash.debounce@4.0.8: {}
 

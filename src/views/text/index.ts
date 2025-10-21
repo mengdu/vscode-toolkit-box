@@ -1,6 +1,7 @@
 import * as shared from '../shared'
 import crypto from 'crypto'
 import * as native from './native'
+import { Parser as ExprEval } from 'expr-eval'
 
 export const router: {
   name: string
@@ -192,3 +193,23 @@ define('random-bytes', 'Random Bytes', async (task) => {
 // define('totp', 'TOTP', async (task) => {
 //   task.output = 'todo'
 // })
+
+const parse = new ExprEval({
+  operators: {
+    add: true,
+    subtract: true,
+    multiply: true,
+    divide: true,
+    power: true,
+    remainder: false,
+    factorial: false,
+    logical: false,
+    comparison: false,
+    concatenate: false,
+    conditional: false,
+  }
+})
+
+define('arithmetic-operations', 'Arithmetic Operations', async (task) => {
+  task.output = String(parse.evaluate(task.input))
+})

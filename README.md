@@ -33,6 +33,7 @@ ToolKit Box for VSCode.
 - Date Parse
 - String Stats
 - Random Bytes
+- Arithmetic Operations
 
 ## Development
 
