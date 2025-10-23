@@ -29,6 +29,8 @@ function TextTaskInput() {
           onKeyDown={e => {
             if (e.key === 'Enter') {
               if (e.shiftKey) return
+              // onCompositionStart
+              if (e.nativeEvent.isComposing) return
 
               e.preventDefault()
               dispatch({
