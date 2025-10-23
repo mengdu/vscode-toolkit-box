@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       cors: true,
     },
+    base: '/_DIST_',
     build: {
       emptyOutDir: true,
       outDir: path.resolve(__dirname, '../dist/web'),

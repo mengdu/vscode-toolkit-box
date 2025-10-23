@@ -5,41 +5,21 @@ import logger from '../utils/logger'
 import * as shared from './shared'
 import * as text from './text'
 
-export const getWebviewHtml = async (context: vscode.ExtensionContext, webview: vscode.Webview) => {
+export const getWebviewHtml = async (context: vscode.ExtensionContext, webview: vscode.Webview, initData: string) => {
   const resolve = (file: string) => webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, file)).toString()
   const mediaBaseURL = JSON.stringify(resolve(''))
-  const js = utils.isDev()
-    ? `<script>window.mediaBaseURL = ${mediaBaseURL}</script>
-      <script type="module">
-        import RefreshRuntime from "${consts.WEB_HOST}/@react-refresh"
-        RefreshRuntime.injectIntoGlobalHook(window)
-        window.$RefreshReg$ = () => {}
-        window.$RefreshSig$ = () => (type) => type
-        window.__vite_plugin_react_preamble_installed__ = true
-      </script>
-      <script type="module" src="${consts.WEB_HOST}/@vite/client"></script>
-      <script type="module" src="${consts.WEB_HOST}/src/main.tsx"></script>`
-    : `<script>window.mediaBaseURL = ${mediaBaseURL}</script>
-      <script type="module" crossorigin src="${resolve(`dist/web/js/index.js`)}"></script>`
-  const css = utils.isDev()
-    ? ''
-    : `<link rel="stylesheet" crossorigin href="${resolve(`dist/web/assets/common.css`)}">
-      <link rel="stylesheet" crossorigin href="${resolve(`dist/web/assets/index.css`)}">`
-  
-  return `
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        ${css}
-        <script type="text/json" id="doc"><!-- init-state --></script>
-      </head>
-      <body>
-        <div id="root"></div>
-        ${js}
-      </body>
-    </html>`
+  let html = ''
+  if (utils.isDev()) {
+    const res = await fetch(consts.WEB_DEV_URL)
+    html = await res.text()
+    html = html.replace(/\/_DIST_/g, consts.WEB_DEV_URL)
+  } else {
+    const file = vscode.Uri.joinPath(context.extensionUri, 'dist', 'web', 'index.html')
+    logger.info(`Reading webview html from ${file}`)
+    html = await vscode.workspace.fs.readFile(file).then(buffer => buffer.toString())
+    html = html.replace(/\/_DIST_/g, resolve('dist/web'))
+  }
+  return html.replace('__MEDIA_BASE_URL__', mediaBaseURL).replace('<!-- init-state -->', initData)
 }
 
 export class ToolkieBoxView implements vscode.WebviewViewProvider {
@@ -70,10 +50,6 @@ export class ToolkieBoxView implements vscode.WebviewViewProvider {
 			enableScripts: true
 		}
 
-    let html = await getWebviewHtml(this.context, webviewView.webview).catch(err => {
-      logger.error('getWebviewHtml err:', err)
-      return err.message
-    })
     const state: shared.InitData = {
       tools: text.router.map(e => {
         return {
@@ -82,8 +58,10 @@ export class ToolkieBoxView implements vscode.WebviewViewProvider {
         }
       })
     }
-    html = html.replace('<!-- init-state -->', utils.escapeJson(JSON.stringify(state)))
-    webviewView.webview.html = html
+    webviewView.webview.html = await getWebviewHtml(this.context, webviewView.webview, utils.escapeJson(JSON.stringify(state))).catch(err => {
+      logger.error('getWebviewHtml err:', err)
+      return err.message
+    })
     this.view = webviewView
     this.onDidReceiveMessage(webviewView)
 	}
