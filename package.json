@@ -4,7 +4,7 @@
   "description": "Toolkit Box for VS Code.",
   "publisher": "lanyue",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "dist/main.js",
   "icon": "media/icon.png",
   "categories": [
